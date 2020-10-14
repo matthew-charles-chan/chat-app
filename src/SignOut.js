@@ -1,5 +1,5 @@
-import React from "react"
-import PropTypes from "prop-types"
+/* eslint-disable react/prop-types */
+import React from 'react'
 
 export default function SignOut({ auth }) {
   return (
@@ -9,8 +9,4 @@ export default function SignOut({ auth }) {
       </button>
     )
   )
-}
-
-SignOut.propTypes = {
-  auth: PropTypes.func.isRequired,
 }

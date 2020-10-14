@@ -1,6 +1,6 @@
-import React from "react"
-import firebase from "firebase/app"
-import PropTypes from "prop-types"
+/* eslint-disable react/prop-types */
+import React from 'react'
+import firebase from 'firebase/app'
 
 export default function SignIn(props) {
   const signInWithGoogle = () => {
@@ -14,8 +14,4 @@ export default function SignIn(props) {
       </button>
     </>
   )
-}
-
-SignIn.propTypes = {
-  auth: PropTypes.func.isRequired,
 }
