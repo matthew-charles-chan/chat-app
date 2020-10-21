@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import ChatMessage from './ChatMessage'
 
-export default function Chatroom({ firestore, auth }) {
+export default function Chatroom({ firestore, auth, getTimeStamp }) {
+  const dummy = useRef()
   const messagesRef = firestore.collection('messages')
   const query = messagesRef.orderBy('createdAt').limit(25)
 
@@ -18,21 +19,22 @@ export default function Chatroom({ firestore, auth }) {
 
     await messagesRef.add({
       text: formValue,
-      createdAt: firestore.FieldValue.serverTimestamp(),
+      createdAt: getTimeStamp(),
       uid,
       photoURL,
     })
 
     setFormValue('')
+    dummy.current.scrollIntoView({ behavior: 'smooth' })
   }
-  // console.log(messagesRef)
-  console.log(auth)
+
   return (
     <>
       <main>
         {messages &&
           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
       </main>
+      <span ref={dummy} />
       <form onSubmit={sendMessage}>
         <input
           value={formValue}
@@ -41,7 +43,7 @@ export default function Chatroom({ firestore, auth }) {
         />
 
         <button type="submit" disabled={!formValue}>
-          🕊️
+          SEND
         </button>
       </form>
     </>

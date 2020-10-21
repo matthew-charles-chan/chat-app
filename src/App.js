@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -24,6 +25,10 @@ const firestore = firebase.firestore()
 function App() {
   const [user] = useAuthState(auth)
 
+  const getTimeStamp = () => {
+    return firebase.firestore.FieldValue.serverTimestamp()
+  }
+
   return (
     <div className="App">
       <header>
@@ -31,7 +36,11 @@ function App() {
       </header>
       <section>
         {user ? (
-          <Chatroom firestore={firestore} auth={auth} />
+          <Chatroom
+            firestore={firestore}
+            auth={auth}
+            getTimeStamp={getTimeStamp}
+          />
         ) : (
           <SignIn auth={auth} />
         )}
