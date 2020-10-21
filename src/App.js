@@ -27,12 +27,14 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>⚛️🔥💬</h1>
         <SignOut auth={auth} />
       </header>
-
       <section>
-        {user ? <Chatroom firestore={firestore} /> : <SignIn auth={auth} />}
+        {user ? (
+          <Chatroom firestore={firestore} auth={auth} />
+        ) : (
+          <SignIn auth={auth} />
+        )}
       </section>
     </div>
   )
